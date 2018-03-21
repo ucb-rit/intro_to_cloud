@@ -16,9 +16,9 @@ We will aim the workshop at practical use of the cloud for research with four ex
 
 **2. Creating reproducible workflows** 
 
-**3. Using a Cloud API for research** 
+**3. Using a cloud API for research** 
 
-**4. Deploying a web app** 
+**4. Getting quick, free access to a Linux terminal (*e.g. for Python script*)** 
 
 ## Tools and Terminology 
 
@@ -40,11 +40,11 @@ Virtual images are snapshots of an OS and software on it. These images are pre-b
 
 **Docker** is a popular platform for containers across cloud providers.
 
-Containers are similar to the virtual images above but tend to go a few steps further with encapsulating an environment. Rather than installing the system software you use on a VM or the existing software on a cluster, all application code and software dependencies are bundled together into a container. A Docker image of the container can be installed and run on any system with Docker installed. The image contains a reproducible compute environment, including code and all related dependencies.    
+Containers are similar to the virtual images above but tend to go a few steps further with encapsulating an environment. Rather than installing the system software you use on a VM or the existing software on a cluster, all application code and software dependencies are bundled together into a container. A Docker image of the container can be installed and run on any system with Docker installed. The image contains a reproducible compute environment, including code and all dependencies.    
 
 **Notebooks** *(e.g. Jupyter)* 
 
-Notebooks are great tools for creating interactive and reproducible workflows. 
+Notebooks are great tools for creating interactive and shareable workflows. 
 
 **MyBinder** 
 
@@ -56,7 +56,7 @@ A free cloud service that allows users to host Jupyter Notebooks.
 
 XSEDE Jetstream is NSF's publicly funded cloud service. It is one of the many resources offered through the NSF-funded XSEDE program. XSEDE is an ecosystem of compute resources offered at the national level.
 
-Jetstream offers interactive Virtual Machines that users can access through a web browser. There are virtual images   
+Jetstream offers interactive Virtual Machines that users can access through a web browser.    
 
 **Access to Jetstream can start with a 24-hour turnaround.** 
 

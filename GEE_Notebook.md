@@ -74,7 +74,33 @@ And open a web browser at <code>http://localhost:8081/</code>
 
 ![Datalab localhost running on port 8081](images/gee_datalab_localhost.png)
 
-#### iv) Authenticate Earth Engine 
+#### iv) Hello World notebook 
+
+Navigate to:
+> /docs/Hello World.ipynb
+
+Let's run the following sample script: 
+
+```
+import numpy as np 
+x = np.array([[1, 2], [3, 4]])
+print(np.sum(x))
+```
+
+We have an active notebook that can be used with interactively for Python development. 
+
+![Datalab localhost running Python](images/datalab_python_example.png)
+
+#### v) Interactive data visualization  
+
+Navigate to: 
+> /docs/tutorials/Data/Interactive Charts with Google Charting APIs.ipynb
+
+This demo illustrates the use of the Google Charting API with a Datalab notebook to easily create interactive plots for data visualization.
+
+![Datalab notebook with Google Charting API](images/datalab_charting_API.png)  
+
+#### vi) Authenticate Earth Engine 
 
 Navigate to:
 > /notebooks/docs-earthengine  
@@ -82,9 +108,46 @@ Navigate to:
 Open authentication notebook: 
 > authorize_notebook_server.ipynb 
 
-#### v) Sample Earth Engine script 
+**Note:** if *earthengine* is not installed, you can run the steps from [this tutorial](https://developers.google.com/earth-engine/python_install_manual) in your terminal.
 
-We can use the Datalab notebook to run scripts that use either the Python or Javascript Google Earth Engine APIs. 
+#### vii) Sample Earth Engine script 
+
+We can use the Datalab notebook to run scripts that use either the Python or Javascript Google Earth Engine APIs.
+
+The following script connects with Earthengine and prints the metadata of an image pulled from the API: 
+
+```
+### Example from Google Earth Engine API web page 
+
+# Import the Earth Engine Python Package
+import ee
+
+# Initialize the Earth Engine object, using the authentication credentials.
+ee.Initialize()
+
+# Print the information for an image asset.
+image = ee.Image('srtm90_v4')
+print(image.getInfo())
+``` 
+
+**From the command-line**
+
+![Using earthengine in terminal](ee_terminal.png)
+
+**From a Datalab notebook**
+
+Run the following in the notebook to download elevation data from NASA Shuttle Radar Topography Mission and print the path of a download URL.
+
+```
+# Get a download URL for an image.
+image1 = ee.Image('srtm90_v4')
+path = image1.getDownloadUrl({
+    'scale': 30,
+    'crs': 'EPSG:4326',
+    'region': '[[-120, 35], [-119, 35], [-119, 34], [-120, 34]]'
+})
+print path
+```
 
 ### 4. GEE API Container on Google Cloud Platform 
 
