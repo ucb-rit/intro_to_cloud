@@ -74,13 +74,17 @@ And open a web browser at <code>http://localhost:8081/</code>
 
 ![Datalab localhost running on port 8081](images/gee_datalab_localhost.png)
 
-#### iV) Authenticate Earth Engine 
+#### iv) Authenticate Earth Engine 
 
 Navigate to:
 > /notebooks/docs-earthengine  
 
 Open authentication notebook: 
 > authorize_notebook_server.ipynb 
+
+#### v) Sample Earth Engine script 
+
+We can use the Datalab notebook to run scripts that use either the Python or Javascript Google Earth Engine APIs. 
 
 ### 4. GEE API Container on Google Cloud Platform 
 

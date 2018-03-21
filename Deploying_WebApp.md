@@ -1,5 +1,9 @@
 # Deploying a Web App 
 
+This is an alternative example of using Cloud resources for the **Intro to Cloud** Berkeley Research Computing Workshop. 
+
+## Overview 
+
 This example will cover deploying a web app in the cloud. It involves creating a Docker image of the web app and hosting the application with an accessible URL. 
 
 ### Steps 
