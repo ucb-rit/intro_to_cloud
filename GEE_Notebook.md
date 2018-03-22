@@ -145,7 +145,7 @@ print(image.getInfo())
 
 **From the command-line**
 
-![Using earthengine in terminal](ee_terminal.png)
+![Using earthengine in terminal](images/ee_terminal.png)
 
 **From a Datalab notebook**
 
@@ -161,6 +161,8 @@ path = image1.getDownloadUrl({
 })
 print path
 ```
+
+![Pull NASA data and print image](images/datalab_print_image.png)
 
 ### 4. Seeing Cow Directions with an API
 

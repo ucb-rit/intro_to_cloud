@@ -63,9 +63,3 @@ al.md"
 ```
 
 And we are ready to go with an interactive tutorial!
-
-## Next steps 
-
-Google Cloud Shell has Docker pre-installed and be used to locally build your own containers. 
-
-We can see this in action in [the next example](cloud_workflow.md). 
