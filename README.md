@@ -20,11 +20,11 @@ This workshop is intended to orient the complete novice to the world of cloud co
 
 [**Sharing Reproducible Workflows:**](Cloud_Workflow.md) *15 min* 
 
-[**Running VMs in Google Cloud Platform**](GCP_VMs.md) *10 min* 
+[**Running VMs in Google Cloud Platform**](GCP_VMs.md) *5-8 min* 
 
-[**Free, Quick Linux Terminal:**](GCP_Cloud_Shell.md) *10 min*
+[**Free, Quick Linux Terminal:**](GCP_Cloud_Shell.md) *5-8 min*
 
-[**Cows and Cloud APIs:**](GEE_Notebook.md) *10 min*
+[**Cows and Cloud APIs:**](GEE_Notebook.md) *15 min*
 
 [**Access & Grants:**](Access_Grants.md) *3 min*
 
