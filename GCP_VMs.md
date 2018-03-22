@@ -50,3 +50,4 @@ A free Linux terminal that you can access in your web browser. Cloud Shell can b
 
 [Quickstart Linux VM instructions can be found here.](https://cloud.google.com/compute/docs/quickstart-linux)
 
+[**Next: Free Linux Terminal with Cloud Shell**](GCP_Cloud_Shell.md)

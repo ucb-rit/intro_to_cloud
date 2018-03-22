@@ -1,6 +1,6 @@
-# Google Earth Engine 
+# Google Cloud APIs 
 
-This example will cover using a Google Cloud API (Google Earth Engine) within a Jupyter Notebook for research. 
+This example will cover using Google Cloud APIs (*e.g. Google Earth Engine*) within a Jupyter Notebook for research.
 
 ## Overview of Google Earth Engine 
 
@@ -36,7 +36,7 @@ We can use the Google Earth Engine IDE to interactively explore locations and di
 
 **What is an API?** 
 
-As researchers with limited time, we do not want to have to manually click through thousands of cow images to calculate their direction. So we want to automate the process. 
+As researchers with limited time, we do not want to have to manually click through thousands of cow images to calculate their direction. We want to automate the process. 
 
 An API allows us to automate the process of clicking through images by providing functions and data that we can connect to and use.   
 
@@ -217,3 +217,5 @@ The following example uses Google's TensorFlow machine learning framework to run
 #### Signup / enroll 
 
 https://earthengine.google.com/signup  
+
+[**Next: Overview**](Overview.md)

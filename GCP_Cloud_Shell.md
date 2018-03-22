@@ -63,3 +63,5 @@ al.md"
 ```
 
 And we are ready to go with an interactive tutorial!
+
+[**Next: Cows and Cloud APIs**](GEE_Notebook.md)

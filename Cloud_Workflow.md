@@ -1,4 +1,4 @@
-# Reproducable Cloud Workflow
+# Reproducible Cloud Workflow
 
 This tutorial will show you how to bundle your analysis scripts together with its dependencies into a container that can be more easily run on another machine. This lets you 1) create portable analysis environments that can be run on cloud VMs, and 2) share the entire workflow with colleagues who can run the analysis on their local machine. For researchers and scientists, this has huge value in the ability to create reproducable workflows.
 
@@ -172,3 +172,6 @@ Just as I created one VM and ran my docker analysis on it with a few clicks and 
 For launching this many machines, though, it would be nice to do it in an automated way. That's why cloud providers create APIs for there services. An Application Programming Interface (API) is a documented set of tools that allow you interact with a service through a software or code interface, rather than a human interface. This allows you to automate tasks like "spinning up" VMs and pulling out the results.
 
 A quick warning, though: When you attach a cloud service to your credit card, and then use it's APIs to automate it's usage, you are automating spending your money. A dumb mistake could end up landing you with a fat bill for a whole lot of useless service.
+
+
+[**Next: Running Virtual Machines in Google Cloud Platform**](GCP_VMs.md)

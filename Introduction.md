@@ -2,13 +2,17 @@
 
 This workshop will cover a general, basic introduction to using the Cloud.
 
+## What is the Cloud? 
+
+Machine types go from personal computers (*low service*) to servers (*mid service*) to the cloud (*high service*). 
+
 ## Why the Cloud?
 
 Cloud resources typically provide a high-level of control over compute workflow. Through the use of virtual machines (VM), cloud resources offer the ability to create virtual images of specific compute environments, then run those environments on scalable virtually-rented machines.
 
 Savio and other traditional HPC resources (*e.g. XSEDE's Comet*) often act as the go-to compute resources for the campus community. However, these resources do not offer sufficient capabilities to cover all research needs. The examples we will cover in this workshop demonstrate some of the capabilities found in the cloud that may not be available in traditional HPC clusters. 
 
-## Example Use Cases
+## How to use the Cloud? 
 
 We will aim the workshop at practical use of the cloud for research with four examples: 
 
@@ -71,3 +75,6 @@ There are several commercial cloud providers. These providers offer limited reso
 - Google Cloud Platform (GCP) 
 
 - DigitalOcean 
+
+
+[**Next: The Cloud Classroom**](Cloud_Classroom.md)
