@@ -2,7 +2,7 @@
 
 This tutorial will show you how to bundle your analysis scripts together with its dependencies into a container that can be more easily run on another machine. This lets you 1) create portable analysis environments that can be run on cloud VMs, and 2) share the entire workflow with colleagues who can run the analysis on their local machine. For researchers and scientists, this has huge value in the ability to create reproducable workflows.
 
-In this example, I am preparing a computational tool for publication, along with my application analysis. I have already published the code [in a public GitHub repository](https://github.com/channsoden/BRAG), along with some documentation. I would have loved to simply write up my sample analysis as a Jupyter Notebook and then host the whole shebang on MyBinder.org, as was done in the "Cloud Workshop" tutorial. Unfortunately, I ran into two obstacles. First, my sample data consists of 19 Genomes (228 MB compressed), which is too large to host on GitHub. Second, I create some very large figures (I am looking at many genomes, after all) that require nearly 4 GB of memory to produce, which is over the limit for MyBinder.
+In this example, I am preparing a computational tool for publication, along with my application analysis. I have already published the code [in a public GitHub repository](https://github.com/channsoden/BRAG), along with some documentation. I would have loved to simply write up my sample analysis as a Jupyter Notebook and then host the whole shebang on MyBinder.org, as was done in the "Cloud Classroom" tutorial. Unfortunately, I ran into two obstacles. First, my sample data consists of 19 Genomes (228 MB compressed), which is too large to host on GitHub. Second, I create some very large figures (I am looking at many genomes, after all) that require around 4 GB of memory to produce, which is over the limit for MyBinder.
 
 I decided to host my large-ish data set on the Open Science Framework (OSF), and simply download and extract the data as the first step of my analysis pipeline.
 
@@ -10,9 +10,11 @@ Then, instead of creating a 1-click interactive environment with MyBinder, I dec
 
 ## Publishing Data on OSF
 
-The [Open Sciene Framework](https://osf.io) is a grant-funded platform for publishing and sharing scientific projects, from data, to analysis, to preprints and articles. For my purposes it has two key features 1) it's free and provides unlimited storage of files under 5 GB, and 2) it creates persistent URLs for resources and provides DOIs for projects, both of which enable citation and reliable access.
+The [Open Sciene Framework](https://osf.io) is a grant-funded platform for publishing and sharing scientific projects, from data, to analysis, to preprints and articles. Dr. Alex Paxton, a postdoc and BIDS fellow here at Berkeley, has recently used it as a record and data repository for a recent publication. You can check out [her project here](https://osf.io/x9ay6/), which links to her GitHub for code, her data, and her paper.
 
-After creating an OSF account, I made a new project for my tool. Within the project, in the Files section, I select "OSF Storage" then click the "Upload" button that appears. I use the GUI to select the .tar.gz archive of my genomes. Now I can click "genomes.tar.gz", and see I have links to Download and Share the file. [Here is the share link.](https://mfr.osf.io/render?url=https://osf.io/vmkc8/?action=download%26mode=render) If I want to, I can also gcreate a DOI for the project and include it in my manuscript.
+For my purposes OSF has two key features 1) it's free and provides unlimited storage of files under 5 GB, and 2) it creates persistent URLs for resources and provides DOIs for projects, both of which enable citation and reliable access.
+
+After creating an OSF account, I made a new project for my tool. Within the project, in the Files section, I select "OSF Storage" then click the "Upload" button that appears. I use the GUI to select the .tar.gz archive of my genomes. Now I can click "genomes.tar.gz", and see I have links to Download and Share the file. The share link tries do display the file in the browser, which is useless for this compressed archive, so [Here is the download link.](https://osf.io/vmkc8/download) If I want to, I can also gcreate a DOI for the project and include it in my manuscript.
 
 ## Containerizing my Workflow with Docker
 
@@ -29,14 +31,14 @@ You almost certainly want the "Docker CE x86_64" version for you operating syste
 
 ### Learning to Use Docker
 
-I will show you the general workflow of Docker here, and how I use it to acheive my goals, but I won't dwell on the details. When you're ready to learn Docker yourself, you can start with the official docs. They are written for software types rather than academic researchers, so, for example, the first app they have you build is a few leagues above "Hello World", but if you just follow along with the steps it's actually fairly approachable.
+I will show you the general workflow of Docker here and how I use it to acheive my goals, but I won't dwell on the details. When you're ready to learn Docker yourself, you can start with the official docs. They are written for software types rather than academic researchers, so, for example, the first app they have you build is a few leagues above "Hello World", but if you just follow along with the steps it's actually fairly approachable.  
 https://docs.docker.com/get-started/
 
 One thing they leave out that was helpful for me in the beginning is running your Docker containers with an interactive terminal.
 ```bash
 docker run -it <image> bash
 ```
-If you didn't specify a command to run at start in your Dockerfile, this will run the container and drop you into it so that you can poke around under the hood.
+This will run the image and drop you into the container so that you can poke around under the hood.
 
 ### Writing the Dockerfile
 
@@ -51,20 +53,24 @@ FROM python:3
 # Create BRAG directory
 RUN mkdir /home/BRAG
 
+# Set the working directory
+WORKDIR /home/BRAG
+
 # Copy the current directory contents into the container working directory
 ADD . /home/BRAG
 
-# Set the working directory
-WORKDIR /home/BRAG/sample_data
-
 # Install any Python dependencies specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+
+# Set the working directory for the sample analysis
+WORKDIR /home/BRAG/sample_data
 
 # Create a directory for the results
 RUN mkdir /home/BRAG/sample_data/results
 
 # Run sample_data/sample_analysis.py when the container launches
-CMD "bash sample_analysis.sh 1> results/sample_analysis.out 2> results/sample_analysis.err"
+CMD exec bash sample_analysis.sh 1> results/sample_analysis.out 2> results/sample_analysis.err
 ```
 
 ### Finding a Parent Runtime
@@ -131,7 +137,7 @@ XSEDE Jetstream is NSF's cloud platform. Relative to the commercial providers, i
 
 For those of you without Jetstream allocations, you can recreate these steps by installing Docker on your local machine and running it there.
 
-I navigated to the [Jetstream Cloud Console](https://use.jetstream-cloud.org/) and created a new project (Cloud Workshop), and within that project create a new VM instance. I recommend using one of the featured images to start with, as they tend to be more reliable. To run my new image, I searched for "docker", and of the two featured images that are tagged with "docker", I selected the Centos 7 image. I then gave the instance a helpful name ("Development_docker"), and set the instance size to "m1.medium" because the 6 CPUs and 16 GB of memory should be enough to run my analysis.
+I navigated to the [Jetstream Cloud Console](https://use.jetstream-cloud.org/) and created a new project (Cloud Workshop), and within that project create a new VM instance. I recommend using one of the featured images to start with, as they tend to be more reliable. To run my new image, I searched for "docker", and of the two featured images that are tagged with "docker", I selected the Centos 7 image. I then gave the instance a helpful name ("BRAG_box"), and set the instance size to "m1.medium" because I'll need the 16 GB of memory to run my analysis.
 
 Once the VM is online, I can open a web shell and start weilding it immediately. Since Docker is already installed on this VM, I can just tell it to run my Docker image directly from my public repo. The only tricky thing to remember is that, while on the Google Cloud Shell my user was already configured with Docker privileges, that is not the case by default on the Jetstream VM. The result is that I need to run every docker command as sudo.
 
@@ -143,9 +149,9 @@ And that's it! We just went through all that work to acheive this: Any machine, 
 
 ### Getting my Results Out of the Container
 
-After running my container, I need to pull my results out. For portability reasons, you can't configure your images to simply utilize the host file system. You need to either designate a directory to mount into the container when you run it or pull out the results after the fact. I wrote my script to dump all the results in a single directory so that I can just copy that directory out when it's finished.
+After running my container I need to pull my results out. For portability reasons you can't configure your images to simply utilize the host file system. You need to either designate a directory to mount into the container when you run it or pull out the results after the fact. I wrote my script to dump all the results in a single directory so that I can just copy that directory out when it's finished.
 
-Your Docker images are like templates. If you know some computer science, the image is analagous to a class, while containers are instances of the class. When you run an image you create a container that is persistent and unique. So to find the containers I have run I use:
+Your Docker images are like templates. If you know some computer science, the image is analagous to a class, while containers are instances of the class. When you run an image you create a container that is persistent and unique. To find the containers I have created I use:
 
 ```bash
 sudo docker container ls -a
@@ -163,15 +169,15 @@ In this tutorial I showed you how you can publish your entire research project s
 
 The tools you have learned here, though, also enable you to do much more with the cloud.
 
-For example, in my field of genomics, data often comes in huge batches (several to 10s of Terabytes) of sequencing data all at once. Many of the first steps in a genomics analysis are to do some quality control filtering on this data, then condense it down to several GB of relevant data (e.g. read counts, genomes, or summaries of mutations). These first steps often consume astonishing amounts of memory as they involve building sophisticated indexes for all-against-all type comparisons. 
+For example, in my field of genomics data often comes in huge batches (several to 10s of TB) of sequencing data all at once. Many of the first steps in a genomics analysis are to do some quality control filtering on this data, then condense it down to several GB of relevant data (e.g. read counts, genomes, or summaries of mutations). These first steps often consume astonishing amounts of memory as they involve building sophisticated indexes for all-against-all type comparisons. 
 
 For a small startup or other independent entity doing genomics work, this can mean occasional extreme computational needs, followed by long periods of analyzing the results. Containerizing your workflow can facilitate these kinds of burst computing applications.
 
 Just as I created one VM and ran my docker analysis on it with a few clicks and commands, I could create a second and run another analysis there. When I get a batch of genome sequencing data from 200 samples all at once, I could even boot up 200 VMs on a commercial provider and have each one analyze a different sample.
 
-For launching this many machines, though, it would be nice to do it in an automated way. That's why cloud providers create APIs for there services. An Application Programming Interface (API) is a documented set of tools that allow you interact with a service through a software or code interface, rather than a human interface. This allows you to automate tasks like "spinning up" VMs and pulling out the results.
+For launching this many machines, though, it would be nice to do it in an automated way. That's why cloud providers create APIs for their services. An Application Programming Interface (API) is a documented set of tools that allow you interact with a service through a software or code interface, rather than a human interface. This allows you to automate tasks like "spinning up" VMs and pulling out the results.
 
-A quick warning, though: When you attach a cloud service to your credit card, and then use it's APIs to automate it's usage, you are automating spending your money. A dumb mistake could end up landing you with a fat bill for a whole lot of useless service.
+A quick warning, though: When you attach a cloud service to your credit card, and then use it's APIs to automate it's usage, you are automating spending money. A dumb mistake could end up landing you with a fat bill for a whole lot of useless service.
 
 
 [**Next: Running Virtual Machines in Google Cloud Platform**](GCP_VMs.md)

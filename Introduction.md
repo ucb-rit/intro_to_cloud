@@ -46,6 +46,8 @@ Virtual images are snapshots of an OS and software on it. These images are pre-b
 
 Containers are similar to the virtual images above but tend to go a few steps further with encapsulating an environment. Rather than installing the system software you use on a VM or the existing software on a cluster, all application code and software dependencies are bundled together into a container. A Docker image of the container can be installed and run on any system with Docker installed. The image contains a reproducible compute environment, including code and all dependencies.    
 
+![Cloud VMs & Docker](images/Cloud_Cartoon.png)
+
 **Notebooks** *(e.g. Jupyter)* 
 
 Notebooks are great tools for creating interactive and shareable workflows. 
