@@ -57,9 +57,7 @@ An example tutorial can be found at [this Github repo.](https://github.com/Googl
 We can cloud the repo directly in Cloud Shell and open the **tutorial.md** file: 
 
 ```
-cloudshell_open --repo_url "https://github.com/G
-oogleCloudPlatform/cloud-shell-tutorials" --page "editor" --tutorial "tutori
-al.md"
+cloudshell_open --repo_url "https://github.com/GoogleCloudPlatform/cloud-shell-tutorials" --page "editor" --tutorial "tutorial.md"
 ```
 
 And we are ready to go with an interactive tutorial!
