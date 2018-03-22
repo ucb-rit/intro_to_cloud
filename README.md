@@ -7,37 +7,27 @@ This workshop is intended to orient the complete novice to the world of cloud co
 
 ### Goals
 - Learn the core components of cloud computing.
-- Learn what can you do with the cloud.
+- Learn what you can do with the cloud.
 - Learn what cloud can do better than traditional HPC.
 - Learn what resources are available.
 - Learn how to choose between resources.
 
 ## Format
 
-**Introduction:** *10 min* -  Introduction.md
+[**Introduction:**](Introduction.md) *10 min* 
 
-**The Cloud Classroom:** *15 min* - Cloud_Classroom.md
+[**The Cloud Classroom:**](Cloud_Classroom.md) *15 min*
 
-**Free, Quick Linux Terminal:** *10 min* - GCP_Cloud_Shell.md
+[**Sharing Reproducable Workflows:**](cloud_workflow.md) *15 min* 
 
-**Sharing Reproducable Workflows:** *15 min* - cloud_workflow.md
+[**Running VMs in Google Cloud Platform**](GCP_VMs.md) *10 min* 
 
-**Cloud Tools for Research:** *10 min* - GEE_Notebook.md
+[**Free, Quick Linux Terminal:**](GCP_Cloud_Shell.md) *10 min*
 
-**Running VMs in Google Cloud Platform** *10 min* - GCP_VMs.md
+[**Cows and Cloud APIs:**](GEE_Notebook.md) *10 min*
 
-**Access & Grants:** *3 min* - Access_Grants.md
+[**Access & Grants:**](Access_Grants.md) *3 min*
 
-**Where to get help:** *2 min*  
-
-Please reach out to Berkeley Research Computing (*brc@berkeley.edu*) for a free consultation about your compute needs.
-
-**BRC Cloud Consulting can help you:**
-Contact BRC at brc@berkeley.edu 
-
-- Determine if the cloud is a good fit for your computational requirements.
-- Plan for and manage costs of cloud computing.
-- Gain access to cloud computing resources, both for research and research-related instruction.
+[**Overview**](Overview.md)
  
-
 **Questions & Discussion** *15 min*

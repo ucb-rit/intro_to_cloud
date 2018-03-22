@@ -2,7 +2,7 @@
 
 This example will cover using a Google Cloud API (Google Earth Engine) within a Jupyter Notebook for research. 
 
-### 1. Overview of Google Earth Engine 
+## Overview of Google Earth Engine 
 
 There are several Google Cloud APIs that can be used for research, including:
 
@@ -12,15 +12,43 @@ There are several Google Cloud APIs that can be used for research, including:
 - Machine Learning: Natural Language API 
 - Machine Learning: Cloud Speech API for speech recognition  
 
-The Google Earth Engine (GEE) API can be used for geospatial research and development. Users can connect with the GEE API through either Javascript or Python.   
+The Google Earth Engine (GEE) API can be used for geospatial research and development. Users can connect with the GEE API through either Javascript or Python.
 
-### 2. GEE API  
+## Cows Align North-South   
 
-The GEE API can be accessed with either Javascript or Python. In addition, Google has an online Integrated Development Environment (IDE) for "rapid prototyping and visualization of complex spatial analyses using the Javascript API". 
+In 2008, a group of researchers in Germany went through satellite images of cows to measure the direction they align their bodies (*north, south, east, west*).
+
+[A review of the study can be found here.](https://www.wired.com/2013/11/cow-compass-points-the-way-north/)
+
+After reviewing the directions of thousands of cows, researchers found that cows tend to **align north-south.**
+
+## Our Cow Study 
+
+What if we wanted to use the cloud to find the direction cows face?
+
+### 1. Google Earth Engine
+
+The Google Earth Engine offers an Intergrated Development Environment (IDE) for "rapid prototyping and visualization of complex spatial analyses using the Javascript API."  
+
+We can use the Google Earth Engine IDE to interactively explore locations and directions of cows.    
 
 ![Google Earth Engine IDE toy example](images/gee_js_example.png)
 
-### 3. Local GEE API Development 
+**What is an API?** 
+
+As researchers with limited time, we do not want to have to manually click through thousands of cow images to calculate their direction. So we want to automate the process. 
+
+An API allows us to automate the process of clicking through images by providing functions and data that we can connect to and use.   
+
+### 2. Automate Calculating Cow Alignment
+
+We can use the Javascript API to perform geospatial / GIS calculations using functions provided by Earth Engine.
+
+Within the IDE, we can prototype the automated process of going through cow images and calculating their direction.
+
+Once we are done prototyping and have a workflow ready we can move to using the Google Earth Engine API in a notebook environment.   
+
+### 3. A Cow, an API, and a Notebook  
 
 Running a Docker container of GEE API for local development. 
 
@@ -29,12 +57,6 @@ Developing locally allows researchers to create a reproducible workflow before r
 #### i) Install Docker 
 
 Install the Docker application from the platform website (https://docs.docker.com/install)
-
-![Docker install](images/docker_install1.png)  
-
-After successful local installation we can use the Command-line tools.
-
-![Docker installation allows Command-line tools](images/docker_install2.png)
 
 #### ii) Create Earth Engine Container
 
@@ -91,16 +113,7 @@ We have an active notebook that can be used with interactively for Python develo
 
 ![Datalab localhost running Python](images/datalab_python_example.png)
 
-#### v) Interactive data visualization  
-
-Navigate to: 
-> /docs/tutorials/Data/Interactive Charts with Google Charting APIs.ipynb
-
-This demo illustrates the use of the Google Charting API with a Datalab notebook to easily create interactive plots for data visualization.
-
-![Datalab notebook with Google Charting API](images/datalab_charting_API.png)  
-
-#### vi) Authenticate Earth Engine 
+#### v) Authenticate Earth Engine 
 
 Navigate to:
 > /notebooks/docs-earthengine  
@@ -110,7 +123,7 @@ Open authentication notebook:
 
 **Note:** if *earthengine* is not installed, you can run the steps from [this tutorial](https://developers.google.com/earth-engine/python_install_manual) in your terminal.
 
-#### vii) Sample Earth Engine script 
+#### vi) Sample Earth Engine script 
 
 We can use the Datalab notebook to run scripts that use either the Python or Javascript Google Earth Engine APIs.
 
@@ -149,11 +162,31 @@ path = image1.getDownloadUrl({
 print path
 ```
 
-### 4. GEE API Container on Google Cloud Platform 
+### 4. Seeing Cow Directions with an API
 
-Local GEE API develop with Jupyter Notebook  
+We want to take a look at our results with data visualization 
+
+We can build interactive charts with the Google Charting API.    
+
+Navigate to: 
+> /docs/tutorials/Data/Interactive Charts with Google Charting APIs.ipynb
+
+This demo illustrates the use of the Google Charting API with a Datalab notebook to easily create interactive plots for data visualization.
+
+![Datalab notebook with Google Charting API](images/datalab_charting_API.png)  
+
+### 5. Send Cows to the Cloud    
 
 **Note: running Datalab on the Google Cloud Platform (GCP) will incur charges** 
+
+We are ready to send cows to the cloud! 
+
+In other words, we want to start instances of VMs in the cloud for computation. 
+
+We have two options for sending off cows: 
+
+1. Use gcloud commands from our notebook 
+2. Use gcloud commands from Cloud Shell 
 
 #### Stop your instance 
 
@@ -163,7 +196,15 @@ VMs that are stopped do not incur charges
 
 Deleting an instance and notebook will delete all files within the container.  
 
-### 5. GEE Trainings and Research Awards 
+### 6. Machine Learning and Cows 
+
+Now we want to run machine learning on the cow data to make better predictions.  
+
+The following example uses Google's TensorFlow machine learning framework to run a model across a distribution of VM instances in the cloud. Further, the status of the model can be visualized directly in a local Datalab notebook with some other Google APIs.  
+
+[GCP tutorial for TensorFlow across VMs](https://cloud.google.com/solutions/running-distributed-tensorflow-on-compute-engine)
+
+## Trainings and Research Awards 
 
 - Google opens up Earth Engine Research Awards for proposals once a year (*early December*)
 

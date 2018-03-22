@@ -46,10 +46,6 @@ A free Linux terminal that you can access in your web browser. Cloud Shell can b
 
 [See the Cloud Shell example here](GCP_Cloud_Shell.md) 
 
-### 7. TensorFlow for Machine Learning 
-
-[GCP tutorial for TensorFlow across VMs](https://cloud.google.com/solutions/running-distributed-tensorflow-on-compute-engine)
-
 ### Tutorials and resources  
 
 [Quickstart Linux VM instructions can be found here.](https://cloud.google.com/compute/docs/quickstart-linux)
