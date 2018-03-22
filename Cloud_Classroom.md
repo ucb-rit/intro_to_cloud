@@ -4,19 +4,19 @@ This tutorial will show you a few methods of deploying a workshop/teaching envir
 
 In these examples, I will use QB3's Python for Bioinformatics Bootcamp. This is a one week tutorial on Python for complete novices held twice yearly on Berkeley campus for around 50 students from the greater Bay Area. Every year getting the students to install Python and Jupyter before the bootcamp is a hassle, and the first class is always slow and difficult as students run into errors and require help running the tutorial notebooks.
 
-By hosting these course materials in a reproducable environment in the cloud, students are able to begin working with no install, directly through their browser. This can flip the workshop model, allowing instructors to include installation instructions at the end of the workshop, after students have become familiar with the tools and learned their utility.
+By hosting these course materials in a reproducable environment in the cloud students are able to begin working with no install directly through their browser. This can flip the workshop model, allowing instructors to include installation instructions at the end of the workshop after students have become familiar with the tools and learned their utility.
 
 ## MyBinder.org
 
-MyBinder.org is a free cloud service that allows anybody to host a collection of Jupyter notebooks. Jupyter notebooks can include Markdown text interleaved with executable code, making them a great tool for teaching and sharing computational analysis. MyBinder.org allows you to publish your notebooks together with the software dependencies they are running on top of, so that students can run and interact with the notebooks through their browser as if it were a web-page.
+MyBinder.org is a free cloud service that allows anybody to host a collection of Jupyter notebooks. Jupyter notebooks can include Markdown text interleaved with executable code, making them a great tool for teaching and sharing computational analysis. MyBinder.org allows you to publish your notebooks together with the software dependencies they are running on top of so that students can run and interact with the notebooks through their browser as if it were a web-page.
 
-Under the hood, MyBinder.org is a public implementation of BinderHub. You publish your notebooks in a GitHub repository, along with a few files listing the dependencies and requirements of your notebooks, and provide a link to your repository to MyBinder. MyBinder then builds a Docker container out of your repository, and gives you a link to access it. When someone follows the link MyBinder runs the Docker container, which runs Jupyter Notebook and configures the notebook to be accessible via web protocols, and redirects the browser to this new server. What looks like any other web-page to the user is this notebook running within Docker on the MyBinder server.
+Under the hood, MyBinder.org is a public implementation of BinderHub. You publish your notebooks in a GitHub repository along with a few files listing the dependencies and requirements of your notebooks and provide MyBinder with a link to your repository. MyBinder then builds a Docker container out of your repository and gives you a link to access it. When someone follows the link, MyBinder runs the Docker container, which runs Jupyter Notebook and configures the notebook to be accessible via web protocols, and redirects the browser to this new server. What looks like any other web-page to the user is this notebook running within Docker on the MyBinder server.
 
 Here's the [full documentation on MyBinder](https://mybinder.readthedocs.io/en/latest/). Everything we do here is covered under the ["Preparing a Repository for Binder" section](https://mybinder.readthedocs.io/en/latest/using.html#preparing-a-repository-for-binder).
 
 ### 1. Make your course content.
 
-On your local machine, write up your workshop/tutorial/class as Jupyter notebooks. Make sure to note which software and packages you are utilizing, and keep track of any sample data you will include.
+On your local machine, write up your workshop/tutorial/class as Jupyter notebooks. Make sure to note which software and packages you are utilizing and keep track of any sample data you will include.
 
 Here I will just extract my Python_Bootcamp archive:
 
@@ -62,7 +62,7 @@ echo "python-2.7" > runtime.txt
 We also teach a few non-standard Python modules in the workshop. If these can be installed with PIP (a Python package manager), then you can simply list them in "requirements.txt":
 
 ```bash
-echo "numpy\nmatplotlib\npandas\nscipy" > requirements.txt
+echo $'numpy\nmatplotlib\npandas\nscipy' > requirements.txt
 
 ```
 
@@ -74,7 +74,7 @@ echo "ncbi-blast+" > apt.txt
 
 ```
 
-Lastly, we can install any custom software, as well as further customize our environment, by writing a "postBuild" script. This script is run after the other installs and you can put whatever you need in it. Here, I create a ProgramFiles directory and download BLAST into it, since we actually make the students install BLAST manually for practice. My postBuild script looks like this:
+Lastly, we can install any custom software as well as further customize our environment by writing a "postBuild" script. This script is run after the other installs and you can put whatever you need in it. Here, I create a ProgramFiles directory and download BLAST into it, since we actually make the students install BLAST manually for practice. My postBuild script looks like this:
 
 ```bash
 #!/bin/bash
@@ -96,11 +96,11 @@ git push origin master
 
 ### 4. Send it to MyBinder.org
 
-Simply navigate to [MyBinder.org](https://mybinder.org), copy the URL of your GitHub Repo (https://github.com/channsoden/Python_Bootcamp for me), and paste it into the top field.
+Simply navigate to [MyBinder.org](https://mybinder.org), copy the URL of your GitHub Repo ([https://github.com/channsoden/PythonBootcamp](https://github.com/channsoden/PythonBootcamp) for me), and paste it into the top field.
 
-Then copy the URL provided by MyBinder (https://mybinder.org/v2/gh/channsoden/Python_Bootcamp/master for me), and keep it somewhere. Pasting it into the README.md file in the repository is  good place. You can also copy and paste the LaunchBinder badge if you want.
+Then copy the URL provided by MyBinder ([https://mybinder.org/v2/gh/channsoden/PythonBootcamp/master](https://mybinder.org/v2/gh/channsoden/PythonBootcamp/master) for me), and keep it somewhere. Pasting it into the README.md file in the repository is a good place. You can also copy and paste the LaunchBinder badge if you want.
 
-You can now follow the provided link to checkout your handiwork. The first time you launch the binder, or after making changes to the repo, MyBinder will spend some time building the Docker image. After the first launch subsequent launches should be a fair bit faster, as only a new instance need to be created.
+You can now follow the provided link to check out your handiwork. The first time you launch the binder, or after making changes to the repo, MyBinder will spend some time building the Docker image. After the first launch subsequent launches should be a fair bit faster, as only a new instance need to be created.
 
 ## What's cool?
 
