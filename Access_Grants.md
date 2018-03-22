@@ -2,6 +2,8 @@
 
 This page contains dates and other important information for obtaining access and grants for various cloud providers. Nearly all commercial cloud providers offer limited free resources (always free tier) and free compute credits for first time users. 
 
+Also see [this table that describes some of the cloud resources and the grants and free services they offer](https://github.com/ucb-rit/intro_to_cloud/raw/master/Cloud_Grants_and_Access.pdf).
+
 ## XSEDE Jetstream - NSF
 * No cost option for interactive VMs.
 * Offers VMs pre-built with MATLAB, RStudio, and Jupyter notebooks, Docker and Singularity.
