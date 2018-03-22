@@ -18,7 +18,7 @@ This workshop is intended to orient the complete novice to the world of cloud co
 
 [**The Cloud Classroom:**](Cloud_Classroom.md) *15 min*
 
-[**Sharing Reproducable Workflows:**](cloud_workflow.md) *15 min* 
+[**Sharing Reproducable Workflows:**](Cloud_Workflow.md) *15 min* 
 
 [**Running VMs in Google Cloud Platform**](GCP_VMs.md) *10 min* 
 
