@@ -51,40 +51,124 @@ FROM python:3
 # Create BRAG directory
 RUN mkdir /home/BRAG
 
-# Set the working directory
-WORKDIR /home/BRAG
-
 # Copy the current directory contents into the container working directory
 ADD . /home/BRAG
+
+# Set the working directory
+WORKDIR /home/BRAG/sample_data
 
 # Install any Python dependencies specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
+# Create a directory for the results
+RUN mkdir /home/BRAG/sample_data/results
+
 # Run sample_data/sample_analysis.py when the container launches
-#CMD ["bash", "./sample_data/sample_analysis.sh"]
+CMD "bash sample_analysis.sh 1> results/sample_analysis.out 2> results/sample_analysis.err"
 ```
 
 ### Finding a Parent Runtime
 
 The only strange part of my Dockerfile is the first statement, "FROM python:3". This statement actually does most of the work by letting my image inherit all the properties of a parent image. Since I mostly do Python, I chose to use the officially support Python:3 image as a base. This image includes Ubuntu Linux with Python 3 and many of the other basic tools, so I don't need to worry about configuring them. Everything I add is just frosting on top of this mostly-complete operating system.
 
+There are multiple places where you can find pre-cooked base images to use, including GitHub. For example, Jupyter maintains a set of notebooks for [data science](https://github.com/jupyter/docker-stacks/tree/master/datascience-notebook), [R](https://github.com/jupyter/docker-stacks/tree/master/r-notebook), [machine learning using TensorFlow](https://github.com/jupyter/docker-stacks/tree/master/tensorflow-notebook), and other [common research needs](https://github.com/jupyter/docker-stacks). Their inheritance diagram shows how different Docker images inherit from each other using the "FROM" statement. Starting with a basic Ubuntu image, each image adds a bit more software and specialization to the environment.
 
+![Image inheritance diagram](https://github.com/jupyter/docker-stacks/raw/master/internal/inherit-diagram.png)
+
+These images are published in registries like Docker Hub. A registry is a collection of repositories, so the Jupyter images I just mentioned are stored in Jupyter's repository. Similar to how Git is a version control tool and GitHub is a public registry for Git repositories, Docker is a containerizing tool and Docker Hub is a public registry of Docker images. For whatever your needs, [Docker Hub](https://hub.docker.com/) is the place to start looking for a parent image.
+
+I found my Python 3 parent image on the [official Python repository](https://hub.docker.com/_/python/) on Docker Hub. The top of the page is very confusing with a huge list of tags, but scroll down to "How to use this image" to see an easy sample Dockerfile.
 
 ### Building & Testing the Image
 
+As I said above, because my actual image is under 5 GB and is already hosted as a GitHub repo, I am just going to use the Google Cloud Shell to build my Docker image. To launch the shell, go to the [Google Cloud Platform Console](https://console.cloud.google.com) and log in with your Gmail or Bmail account. Then just click the **>_** icon in the top right (and "Launch Shell" if it's your first time). The shell will then pop up in the bottom of your browser tab.
 
+First, I clone my repo into my home directory and cd into it:
 
+```bash
+git clone https://github.com/channsoden/BRAG.git
+cd BRAG
+```
 
-From the repo directory:
+Then from the repo directory:
+```bash
+docker build -t brag .
+```
 
-docker build -t popgen .
-
-
-### Getting my Results Out of the Container
+If I were building this on my local machine or something with a bit more hardware I could test the image here. But because BRAG uses more memory than your typical app, I'm going to push the image straight to the [Docker Cloud](https://cloud.docker.com/) registry and run it on another VM.
 
 ### Pushing my Image to a Public Registry
 
-To push docker images to the public Docker registry, you will need a Docker account.
+To push docker images to the public Docker registry you will need a Docker account. You can make one by following the link above. While there, I also made a public repository to publish my image too called "brag".
+
+I log in to my Docker account on the cloud shell.
+
+```bash
+docker login
+```
+
+Then I tag the image with my username, the name of the repository I want to push it to, and a descriptive version tag.
+
+```bash
+docker tag brag channsoden/brag:cloudworkshop
+```
+
+I can check what I did with:
+
+```bash
+docker image ls
+```
+
+When I'm ready I upload the image.
+
+```bash
+docker push channsoden/brag:cloudworkshop
+```
 
 ## Running my Analysis on Jetstream
 
+XSEDE Jetstream is NSF's cloud platform. Relative to the commercial providers, it is relatively new and doesn't offer nearly as much in the way of resources. However, it is much simpler to learn and is entirely free for academic researchers through a granting process. Berkeley affiliates can get access often within 24 hours by contacting the Campus Champion (email brc@berkeley.edu), who can also lend assistance in writing a grant proposal. Lastly, Jetstream's focus is to provide for interactive analysis, and it's numerous GUI interfaces can be more approachable.
+
+For those of you without Jetstream allocations, you can recreate these steps by installing Docker on your local machine and running it there.
+
+I navigated to the [Jetstream Cloud Console](https://use.jetstream-cloud.org/) and created a new project (Cloud Workshop), and within that project create a new VM instance. I recommend using one of the featured images to start with, as they tend to be more reliable. To run my new image, I searched for "docker", and of the two featured images that are tagged with "docker", I selected the Centos 7 image. I then gave the instance a helpful name ("Development_docker"), and set the instance size to "m1.medium" because the 6 CPUs and 16 GB of memory should be enough to run my analysis.
+
+Once the VM is online, I can open a web shell and start weilding it immediately. Since Docker is already installed on this VM, I can just tell it to run my Docker image directly from my public repo. The only tricky thing to remember is that, while on the Google Cloud Shell my user was already configured with Docker privileges, that is not the case by default on the Jetstream VM. The result is that I need to run every docker command as sudo.
+
+```bash
+sudo docker run channsoden/brag:cloudworkshop
+```
+
+And that's it! We just went through all that work to acheive this: Any machine, with any operating system, so long as it has Docker installed can run my tool and sample analysis with a single command.
+
+### Getting my Results Out of the Container
+
+After running my container, I need to pull my results out. For portability reasons, you can't configure your images to simply utilize the host file system. You need to either designate a directory to mount into the container when you run it or pull out the results after the fact. I wrote my script to dump all the results in a single directory so that I can just copy that directory out when it's finished.
+
+Your Docker images are like templates. If you know some computer science, the image is analagous to a class, while containers are instances of the class. When you run an image you create a container that is persistent and unique. So to find the containers I have run I use:
+
+```bash
+sudo docker container ls -a
+```
+
+The last container I ran comes up on top, and it has both a unique ID string, and a unique two word human readable name. So, for example, with a container named "sleepy_jepsen" I can copy out my results directory to the current directory with:
+
+```bash
+sudo docker cp sleepy_jepsen:/home/BRAG/sample_data/results .
+```
+
+## Future Possibilities
+
+In this tutorial I showed you how you can publish your entire research project so that others can reproduce it. Others will be able to download your data from OSF, view your source code on GitHub, and recreate your exact analysis with your Docker image.
+
+The tools you have learned here, though, also enable you to do much more with the cloud.
+
+For example, in my field of genomics, data often comes in huge batches (several to 10s of Terabytes) of sequencing data all at once. Many of the first steps in a genomics analysis are to do some quality control filtering on this data, then condense it down to several GB of relevant data (e.g. read counts, genomes, or summaries of mutations). These first steps often consume astonishing amounts of memory as they involve building sophisticated indexes for all-against-all type comparisons. 
+
+For a small startup or other independent entity doing genomics work, this can mean occasional extreme computational needs, followed by long periods of analyzing the results. Containerizing your workflow can facilitate these kinds of burst computing applications.
+
+Just as I created one VM and ran my docker analysis on it with a few clicks and commands, I could create a second and run another analysis there. When I get a batch of genome sequencing data from 200 samples all at once, I could even boot up 200 VMs on a commercial provider and have each one analyze a different sample.
+
+For launching this many machines, though, it would be nice to do it in an automated way. That's why cloud providers create APIs for there services. An Application Programming Interface (API) is a documented set of tools that allow you interact with a service through a software or code interface, rather than a human interface. This allows you to automate tasks like "spinning up" VMs and pulling out the results.
+
+A quick warning, though: When you attach a cloud service to your credit card, and then use it's APIs to automate it's usage, you are automating spending your money. A dumb mistake could end up landing you with a fat bill for a whole lot of useless service.
