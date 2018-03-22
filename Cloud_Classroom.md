@@ -4,7 +4,7 @@ This tutorial will show you a few methods of deploying a workshop/teaching envir
 
 In these examples, I will use QB3's Python for Bioinformatics Bootcamp. This is a one week tutorial on Python for complete novices held twice yearly on Berkeley campus for around 50 students from the greater Bay Area. Every year getting the students to install Python and Jupyter before the bootcamp is a hassle, and the first class is always slow and difficult as students run into errors and require help running the tutorial notebooks.
 
-By hosting these course materials in a reproducable environment in the cloud students are able to begin working with no install directly through their browser. This can flip the workshop model, allowing instructors to include installation instructions at the end of the workshop after students have become familiar with the tools and learned their utility.
+By hosting these course materials in a reproducible environment in the cloud students are able to begin working with no install directly through their browser. This can flip the workshop model, allowing instructors to include installation instructions at the end of the workshop after students have become familiar with the tools and learned their utility.
 
 ## MyBinder.org
 

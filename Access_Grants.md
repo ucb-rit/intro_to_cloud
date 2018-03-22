@@ -31,7 +31,7 @@ Rotating special requests for research grant proposals
 https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/
 
     AI for Earth | Deadline: April 9
-    *Includes ESRI ArcGIS and compute credits for a year*  
+    Includes ESRI ArcGIS and compute credits for a year  
 
 ## Google Cloud Platform (GCP) 
 *Commercial Provider*<br/> 
