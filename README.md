@@ -18,13 +18,13 @@ This workshop is intended to orient the complete novice to the world of cloud co
 
 **The Cloud Classroom:** *15 min* - Cloud_Classroom.md
 
-**Free, Quick Linux Terminal:** *10 min* - GCP_Cloud_Shell.md
-
 **Sharing Reproducable Workflows:** *15 min* - cloud_workflow.md
 
-**Cloud Tools for Research:** *10 min* - GEE_Notebook.md
+**Free, Quick Linux Terminal:** *10 min* - GCP_Cloud_Shell.md
 
 **Running VMs in Google Cloud Platform** *10 min* - GCP_VMs.md
+
+**Cloud Tools for Research:** *10 min* - GEE_Notebook.md
 
 **Access & Grants:** *3 min* - Access_Grants.md
 
